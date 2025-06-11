@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Paste Box UI</title>
+</head>
+<body>
+  <h2>Paste your data:</h2>
+  <textarea id="inputBox" rows="10" cols="50"></textarea><br><br>
+  <button onclick="sendData()">Submit</button>
+  <h3>Result:</h3>
+  <div id="resultBox"></div>
+
+  <script>
+    async function sendData() {
+      const JD = document.getElementById("inputBox").value;
+      const response = await fetch("http://localhost:5000/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ JD })
+      });
+      const data = await response.json();
+      document.getElementById("resultBox").innerText = data.result;
+    }
+  </script>
+</body>
+</html>
